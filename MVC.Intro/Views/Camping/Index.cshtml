@@ -48,7 +48,9 @@
                         </div>
                         <div class="product-price">
                             <span class="price">@tent.Price.ToString("0.##") лв.</span>
-                            <button type="button" class="buy-button" onclick="addToCart(@Html.Raw(System.Text.Json.JsonSerializer.Serialize(tent.Name)), @tent.Price.ToString(System.Globalization.CultureInfo.InvariantCulture))">Купи</button>
+                            <button type="button" class="buy-button"
+                                    data-name="@tent.Name"
+                                    data-price="@tent.Price.ToString(System.Globalization.CultureInfo.InvariantCulture)">Купи</button>
                         </div>
                     </div>
                 </div>

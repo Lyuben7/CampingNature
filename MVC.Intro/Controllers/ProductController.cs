@@ -63,7 +63,8 @@ namespace MVC.Intro.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateProduct(Product product, IFormFile? imageFile)
         {
-            if (!TryAssignImage(product, imageFile, previousPath: null))
+            // Keep previously uploaded path (hidden field) when the file input is empty after a validation retry.
+            if (!TryAssignImage(product, imageFile, previousPath: product.ImagePath))
             {
                 return View("Create", product);
             }
@@ -101,13 +102,21 @@ namespace MVC.Intro.Controllers
 
             if (!TryAssignImage(product, imageFile, existing.ImagePath))
             {
-                product.ImagePath = existing.ImagePath;
+                if (string.IsNullOrEmpty(product.ImagePath))
+                {
+                    product.ImagePath = existing.ImagePath;
+                }
+
                 return View(product);
             }
 
             if (!ModelState.IsValid)
             {
-                product.ImagePath = existing.ImagePath;
+                if (string.IsNullOrEmpty(product.ImagePath))
+                {
+                    product.ImagePath = existing.ImagePath;
+                }
+
                 return View(product);
             }
 

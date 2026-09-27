@@ -193,4 +193,15 @@ window.addEventListener("scroll", function () {
         : "0 2px 10px rgba(0,0,0,0.1)";
 });
 
+document.querySelectorAll(".buy-button").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const name = btn.dataset.name;
+        const price = Number(btn.dataset.price);
+        if (!name || Number.isNaN(price)) {
+            return;
+        }
+        addToCart(name, price);
+    });
+});
+
 updateCartCount();
