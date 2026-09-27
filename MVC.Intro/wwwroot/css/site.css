@@ -162,3 +162,14 @@ body {
   box-shadow: 0 5px 20px rgba(0,0,0,0.08);
   overflow: hidden;
 }
+
+.nav-welcome {
+  color: #2d5016 !important;
+  white-space: nowrap;
+}
+
+.navbar-nav .btn.nav-link {
+  border: none;
+  padding: 0.5rem;
+  vertical-align: baseline;
+}

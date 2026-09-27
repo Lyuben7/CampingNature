@@ -55,7 +55,8 @@ namespace MVC.Intro.Controllers
                 var result = await userManager.CreateAsync(users, model.Password);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Login", "Account");
+                    await signInManager.SignInAsync(users, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
                 }
                 foreach (var error in result.Errors)
                 {
