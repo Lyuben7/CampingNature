@@ -1,46 +1,36 @@
-﻿@model Product
+﻿@model MVC.Intro.Models.Product
 
 @{
-    ViewData["Title"] = "Нов продукт";
+    ViewData["Title"] = "Create";
 }
 
-<h1 class="h3">Нов продукт</h1>
+<h1>Create</h1>
+
+<h4>Product</h4>
 <hr />
 <div class="row">
-    <div class="col-md-6">
-        <form asp-action="CreateProduct" enctype="multipart/form-data" method="post">
+    <div class="col-md-4">
+        <form asp-action="CreateProduct">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ImagePath" />
-            <div class="mb-3">
-                <label asp-for="Name" class="form-label"></label>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="mb-3">
-                <label asp-for="Price" class="form-label"></label>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Снимка</label>
-                @if (!string.IsNullOrEmpty(Model.ImagePath))
-                {
-                    <div class="mb-2">
-                        <img src="@Model.ImagePath" alt="Качена снимка" class="img-thumbnail" style="max-width: 220px;"
-                             onerror="this.onerror=null;this.src='/images/tent-placeholder.svg';" />
-                    </div>
-                }
-                <input type="file" name="imageFile" class="form-control" accept="image/jpeg,image/png,image/gif,image/webp" />
-                <span asp-validation-for="ImagePath" class="text-danger"></span>
-                @if (!string.IsNullOrEmpty(Model.ImagePath))
-                {
-                    <small class="text-muted">Снимката е запазена. Изберете нов файл само ако искате да я смените.</small>
-                }
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-            <button type="submit" class="btn btn-primary">Създай</button>
-            <a asp-action="Index" class="btn btn-link">Назад към списъка</a>
         </form>
     </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

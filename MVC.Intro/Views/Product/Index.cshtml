@@ -1,53 +1,48 @@
-﻿@model IEnumerable<Product>
-@inject ImageStorageService Images
+﻿@model IEnumerable<MVC.Intro.Models.Product>
 @{
-    ViewData["Title"] = "Палатки";
+    ViewData["Title"] = "Products";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h3 mb-0">Каталог палатки</h1>
-    <a class="btn btn-success" asp-controller="Product" asp-action="Create">Добави продукт</a>
-</div>
+<h1>View</h1>
 
-@if (!Model.Any())
-{
-    <div class="alert alert-light border text-center py-5">
-        <p class="mb-3">Все още няма добавени продукти.</p>
-        <a class="btn btn-primary" asp-action="Create">Създай първия</a>
-    </div>
-}
-else
-{
-    <div class="row g-4">
+<p>
+    <a asp-controller="Product" asp-action="Create">Create New</a>
+</p>
+<table class="table table table-striped table-bordered align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col" class="text-center">
+                @Html.DisplayNameFor(m => m.Id)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(m => m.Name)
+            </th>
+            <th scope="col" class="text-end">
+                @Html.DisplayNameFor(m => m.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
         @foreach (var item in Model)
         {
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 product-catalog-card">
-                    <div class="catalog-image-wrap">
-                        @if (!string.IsNullOrEmpty(item.ImagePath))
-                        {
-                            <img src="@Images.ToWebPath(item.ImagePath)" alt="@item.Name" class="catalog-image"
-                                 onerror="this.onerror=null;this.src='/images/tent-placeholder.svg';" />
-                        }
-                        else
-                        {
-                            <img src="/images/tent-placeholder.svg" alt="Няма снимка" class="catalog-image" />
-                        }
-                    </div>
-                    <div class="card-body d-flex flex-column">
-                        <h2 class="h5">@item.Name</h2>
-                        <p class="text-success fw-bold fs-4 mb-3">@item.Price.ToString("0.00") лв.</p>
-                        <div class="mt-auto d-flex flex-wrap gap-2">
-                            <a class="btn btn-sm btn-outline-primary" asp-action="Details" asp-route-id="@item.Id">Детайли</a>
-                            <a class="btn btn-sm btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Редакция</a>
-                            <form asp-action="Delete" asp-route-id="@item.Id" method="post" class="d-inline"
-                                  onsubmit="return confirm('Изтриване на този продукт?');">
-                                <button type="submit" class="btn btn-sm btn-outline-danger">Изтрий</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <tr>
+                <td class="text-center">
+                    @Html.DisplayFor(m => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Name)
+                </td>
+                <td class="text-end">
+                    @Html.DisplayFor(m => item.Price)
+                </td>
+                <td class="text-nowrap">
+                    <a class="btn btn-sm btn-primary me-2" asp-controller="Product" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <form asp-action="Delete" asp-controller="Product" asp-route-id="@item.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
         }
-    </div>
-}
+    </tbody>
+</table>
